@@ -2,16 +2,20 @@ package entity
 
 import (
 	"errors"
+	"time"
 
 	"github.com/google/uuid"
+	"gorm.io/gorm"
 )
 
 type Webhook struct {
-	ID                   uuid.UUID `gorm:"type:uuid;default:uuid_generate_v4();primaryKey"`
+	ID                   uuid.UUID `gorm:"type:char(36);primaryKey"`
 	Name                 string
 	URL                  string
 	RequiredVerification bool
 	SecretKey            string
+	CreatedAt            time.Time
+	UpdatedAt            time.Time
 }
 
 func (webhook Webhook) ValidSecretKey() error {
@@ -20,4 +24,14 @@ func (webhook Webhook) ValidSecretKey() error {
 	} else {
 		return nil
 	}
+}
+
+func (webhook *Webhook) BeforeCreate(tx *gorm.DB) (err error) {
+	err = webhook.ValidSecretKey()
+	if err != nil {
+		return err
+	}
+
+	webhook.ID = uuid.New()
+	return nil
 }
