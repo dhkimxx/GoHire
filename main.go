@@ -6,6 +6,7 @@ import (
 	"lark-gitlab-bridge/entity"
 	"log"
 
+	_ "ariga.io/atlas-provider-gorm/gormschema"
 	"github.com/golang-migrate/migrate/v4"
 	_ "github.com/golang-migrate/migrate/v4/database/mysql"
 	_ "github.com/golang-migrate/migrate/v4/source/file"

@@ -10,3 +10,14 @@ docker run -d \
 ```
 go test -v ./...
 ```
+
+
+
+
+- atlas
+```
+curl -sSf https://atlasgo.sh | sh
+go get -u ariga.io/atlas-provider-gorm
+```
+
+atlas migrate diff --dev-url "mysql://root:1234@127.0.0.1:3306/lark-gitlab-bridge" --to "file://migrations"
