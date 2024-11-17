@@ -1,22 +1,22 @@
 package main
 
 import (
+	"context"
 	"fmt"
-	"lark-gitlab-bridge/config"
-	"lark-gitlab-bridge/entity"
 	"log"
 
-	_ "ariga.io/atlas-provider-gorm/gormschema"
-	"github.com/golang-migrate/migrate/v4"
-	_ "github.com/golang-migrate/migrate/v4/database/mysql"
-	_ "github.com/golang-migrate/migrate/v4/source/file"
-	"gorm.io/driver/mysql"
-	"gorm.io/gorm"
+	"lark-gitlab-bridge/config"
+	"lark-gitlab-bridge/ent"
+
+	"entgo.io/ent/dialect"
+	"entgo.io/ent/dialect/sql/schema"
+	_ "github.com/go-sql-driver/mysql"
 )
 
-var DB *gorm.DB
+var client *ent.Client
 
 func initDB() {
+	// MySQL에 연결
 	dsn := fmt.Sprintf("%s:%s@tcp(%s:%d)/%s?charset=%s&parseTime=%v&loc=%s",
 		config.GlobalConfig.Database.Username,
 		config.GlobalConfig.Database.Password,
@@ -29,66 +29,25 @@ func initDB() {
 	)
 
 	var err error
-	DB, err = gorm.Open(mysql.Open(dsn), &gorm.Config{})
+	client, err = ent.Open(dialect.MySQL, dsn)
 	if err != nil {
 		log.Fatalf("failed to connect to database: %v", err)
 	}
+	defer client.Close()
 
-	sqlDB, err := DB.DB()
-	if err != nil {
-		log.Fatalf("failed to get database connection: %v", err)
+	// 데이터베이스 스키마 마이그레이션
+	if err := client.Schema.Create(context.Background(),
+		schema.WithDropColumn(true),
+		schema.WithDropIndex(true),
+	); err != nil {
+		log.Fatalf("failed creating schema resources: %v", err)
 	}
-	if err := sqlDB.Ping(); err != nil {
-		log.Fatalf("failed to ping database: %v", err)
-	}
-
-	log.Println("Successfully connected to the database")
-}
-
-func runMigration() {
-	migrateDSN := fmt.Sprintf("mysql://%s:%s@tcp(%s:%d)/%s",
-		config.GlobalConfig.Database.Username,
-		config.GlobalConfig.Database.Password,
-		config.GlobalConfig.Database.Host,
-		config.GlobalConfig.Database.Port,
-		config.GlobalConfig.Database.Dbname,
-	)
-
-	m, err := migrate.New(
-		"file://migrations",
-		migrateDSN,
-	)
-	if err != nil {
-		log.Fatalf("Error creating migrate instance: %v", err)
-	}
-
-	if err := m.Up(); err != nil && err != migrate.ErrNoChange {
-		log.Fatalf("Error applying migration: %v", err)
-	}
-
 	log.Println("Migration applied successfully!")
 }
 
 func main() {
+	// DB 초기화 및 마이그레이션
 	initDB()
-	runMigration()
 
-	fmt.Println(config.GlobalConfig)
 	fmt.Println("Hello, world!")
-
-	name := "Test WebHook"
-	url := "https://example.com/webhook"
-	requiredVerification := false
-
-	webhook := entity.Webhook{
-		Name:                 name,
-		URL:                  url,
-		RequiredVerification: requiredVerification,
-	}
-	if err := webhook.ValidSecretKey(); err != nil {
-		fmt.Println(err)
-	} else {
-		DB.Create(&webhook)
-	}
-
 }

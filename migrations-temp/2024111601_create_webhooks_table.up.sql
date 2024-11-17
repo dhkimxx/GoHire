@@ -1,9 +1,0 @@
-CREATE TABLE webhooks (
-    id CHAR(36) PRIMARY KEY,
-    name VARCHAR(255),
-    url VARCHAR(255),
-    required_verification BOOLEAN,
-    secret_key VARCHAR(255),
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-);
