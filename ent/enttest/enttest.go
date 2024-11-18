@@ -5,11 +5,11 @@ package enttest
 import (
 	"context"
 
-	"lark-gitlab-bridge/ent"
+	"go-hire/ent"
 	// required by schema hooks.
-	_ "lark-gitlab-bridge/ent/runtime"
+	_ "go-hire/ent/runtime"
 
-	"lark-gitlab-bridge/ent/migrate"
+	"go-hire/ent/migrate"
 
 	"entgo.io/ent/dialect/sql/schema"
 )

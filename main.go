@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"log"
 
-	"lark-gitlab-bridge/config"
-	"lark-gitlab-bridge/ent"
+	"go-hire/config"
+	"go-hire/ent"
 
 	"entgo.io/ent/dialect"
 	"entgo.io/ent/dialect/sql/schema"

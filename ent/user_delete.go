@@ -4,8 +4,8 @@ package ent
 
 import (
 	"context"
-	"lark-gitlab-bridge/ent/predicate"
-	"lark-gitlab-bridge/ent/user"
+	"go-hire/ent/predicate"
+	"go-hire/ent/user"
 
 	"entgo.io/ent/dialect/sql"
 	"entgo.io/ent/dialect/sql/sqlgraph"

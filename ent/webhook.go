@@ -4,8 +4,8 @@ package ent
 
 import (
 	"fmt"
-	"lark-gitlab-bridge/ent/user"
-	"lark-gitlab-bridge/ent/webhook"
+	"go-hire/ent/user"
+	"go-hire/ent/webhook"
 	"strings"
 	"time"
 

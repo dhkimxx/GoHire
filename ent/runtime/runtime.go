@@ -2,7 +2,7 @@
 
 package runtime
 
-// The schema-stitching logic is generated in lark-gitlab-bridge/ent/runtime.go
+// The schema-stitching logic is generated in go-hire/ent/runtime.go
 
 const (
 	Version = "v0.14.1"                                         // Version of ent codegen.

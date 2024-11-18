@@ -3,9 +3,9 @@
 package ent
 
 import (
-	"lark-gitlab-bridge/ent/schema"
-	"lark-gitlab-bridge/ent/user"
-	"lark-gitlab-bridge/ent/webhook"
+	"go-hire/ent/schema"
+	"go-hire/ent/user"
+	"go-hire/ent/webhook"
 	"time"
 
 	"github.com/google/uuid"

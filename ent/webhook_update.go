@@ -6,9 +6,9 @@ import (
 	"context"
 	"errors"
 	"fmt"
-	"lark-gitlab-bridge/ent/predicate"
-	"lark-gitlab-bridge/ent/user"
-	"lark-gitlab-bridge/ent/webhook"
+	"go-hire/ent/predicate"
+	"go-hire/ent/user"
+	"go-hire/ent/webhook"
 	"time"
 
 	"entgo.io/ent/dialect/sql"

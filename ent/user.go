@@ -4,7 +4,7 @@ package ent
 
 import (
 	"fmt"
-	"lark-gitlab-bridge/ent/user"
+	"go-hire/ent/user"
 	"strings"
 	"time"
 

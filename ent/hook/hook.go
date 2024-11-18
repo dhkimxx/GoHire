@@ -5,7 +5,7 @@ package hook
 import (
 	"context"
 	"fmt"
-	"lark-gitlab-bridge/ent"
+	"go-hire/ent"
 )
 
 // The UserFunc type is an adapter to allow the use of ordinary

@@ -3,7 +3,7 @@
 package webhook
 
 import (
-	"lark-gitlab-bridge/ent/predicate"
+	"go-hire/ent/predicate"
 	"time"
 
 	"entgo.io/ent/dialect/sql"

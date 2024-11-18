@@ -9,10 +9,10 @@ import (
 	"log"
 	"reflect"
 
-	"lark-gitlab-bridge/ent/migrate"
+	"go-hire/ent/migrate"
 
-	"lark-gitlab-bridge/ent/user"
-	"lark-gitlab-bridge/ent/webhook"
+	"go-hire/ent/user"
+	"go-hire/ent/webhook"
 
 	"entgo.io/ent"
 	"entgo.io/ent/dialect"
